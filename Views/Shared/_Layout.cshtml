@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] · ExoLanchonete</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+<div class="app-shell">
+    <aside class="sidebar">
+        <a class="brand" asp-controller="Home" asp-action="Index">
+            <span class="brand-mark">E</span><span><b>Exo</b>Lanchonete</span>
+        </a>
+        <div class="menu-label">MENU PRINCIPAL</div>
+        <nav>
+            <a class="nav-link" asp-controller="Home" asp-action="Index"><span>⌂</span> Dashboard</a>
+            <a class="nav-link" asp-controller="ProdutosPage" asp-action="Index"><span>◈</span> Cardápio</a>
+            <a class="nav-link" asp-controller="PedidosPage" asp-action="Index"><span>▣</span> Pedidos</a>
+        </nav>
+        <div class="sidebar-bottom">
+            <div class="tech-card"><span class="pulse"></span><div><strong>Sistema online</strong><small>SQLite · EF Core</small></div></div>
+            <a class="api-link" href="/api/produtos" target="_blank">↗ API de produtos</a>
+            <a class="api-link" href="/api/pedidos" target="_blank">↗ API de pedidos</a>
+        </div>
+    </aside>
+    <main class="main">
+        <header class="topbar">
+            <div><span class="eyebrow">OPERAÇÃO</span><h1>@ViewData["Title"]</h1></div>
+            <div class="top-actions"><span class="status"><i></i> Banco conectado</span><a class="primary-btn" asp-controller="PedidosPage" asp-action="Novo">+ Novo pedido</a></div>
+        </header>
+        <div class="content">
+            @if (TempData["Erro"] is string erro) { <div class="alert">⚠ @erro</div> }
+            @RenderBody()
+        </div>
+    </main>
+</div>
+<script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

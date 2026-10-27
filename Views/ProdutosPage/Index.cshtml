@@ -1,0 +1,6 @@
+@model List<Produto>
+@{ ViewData["Title"] = "Cardápio"; }
+<div class="page-intro"><div><span class="eyebrow">CATÁLOGO</span><h2>Cardápio</h2><p>Produtos persistidos pelo Entity Framework Core no SQLite.</p></div><div class="count-pill">@Model.Count produtos</div></div>
+<div class="product-grid">
+@foreach(var p in Model) { var bebida = p is Bebida; <article class="product-card"><div class="product-top"><span class="food-icon @(bebida ? "drink" : "burger")">@(bebida ? "🥤" : "🍔")</span><span class="category">@(bebida ? "BEBIDA" : "LANCHE")</span></div><h3>@p.Nome</h3><p>@(bebida ? $"{((Bebida)p).VolumeMl} ml" : ((Lanche)p).Vegetariano ? "Opção vegetariana" : "Clássico da casa")</p><div class="product-bottom"><strong>R$ @p.Preco.ToString("N2")</strong><a asp-controller="PedidosPage" asp-action="Novo" class="small-btn">Adicionar a pedido</a></div></article>}
+</div>

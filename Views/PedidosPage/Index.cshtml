@@ -1,0 +1,7 @@
+@model List<Pedido>
+@{ ViewData["Title"] = "Pedidos"; }
+<div class="page-intro"><div><span class="eyebrow">OPERAÇÃO</span><h2>Pedidos</h2><p>Gerencie pedidos e acompanhe seus estados.</p></div><a class="primary-btn" asp-action="Novo">+ Abrir pedido</a></div>
+<div class="table-card"><table><thead><tr><th>Pedido</th><th>Status</th><th>Itens</th><th>Entregador</th><th>Total</th><th>Ação</th></tr></thead><tbody>
+@foreach(var p in Model){<tr><td><b>#@p.Numero.ToString("D3")</b></td><td><span class="badge @(p.Fechado ? "closed" : "open")">@(p.Fechado ? "Fechado" : "Em aberto")</span></td><td>@p.Itens.Sum(i=>i.Quantidade)</td><td>@(p.Entregador?.Nome ?? "Não definido")</td><td><b>R$ @p.Total.ToString("N2")</b></td><td><a class="outline-btn" asp-action="Detalhes" asp-route-numero="@p.Numero">Abrir</a></td></tr>}
+@if(!Model.Any()){<tr><td colspan="6" class="empty">Nenhum pedido cadastrado.</td></tr>}
+</tbody></table></div>

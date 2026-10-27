@@ -1,0 +1,33 @@
+@host = http://localhost:5284
+
+### Cardápio
+GET {{host}}/api/produtos
+
+### Abre o pedido 1
+POST {{host}}/api/pedidos
+
+### Adiciona 2 X-Burguer
+POST {{host}}/api/pedidos/1/itens
+Content-Type: application/json
+
+{
+  "produtoId": 3,
+  "quantidade": 2
+}
+
+### Define entregador Carlos
+PUT {{host}}/api/pedidos/1/entregador
+Content-Type: application/json
+
+{
+  "nome": "Carlos"
+}
+
+### Consulta pedido 1
+GET {{host}}/api/pedidos/1
+
+### Fecha pedido 1
+PUT {{host}}/api/pedidos/1/fechar
+
+### Consulta novamente
+GET {{host}}/api/pedidos/1

@@ -1,0 +1,14 @@
+@model DashboardViewModel
+@{ ViewData["Title"] = "Dashboard"; }
+<section class="hero"><div><span class="eyebrow">VISÃO GERAL</span><h2>Bom dia! Tudo sob controle.</h2><p>Acompanhe pedidos, cardápio e operação da lanchonete em um só lugar.</p></div><div class="hero-icon">✦</div></section>
+<div class="stats-grid">
+ <div class="stat"><div class="stat-icon purple">▣</div><span>Pedidos totais</span><strong>@Model.TotalPedidos</strong><small>Histórico completo</small></div>
+ <div class="stat"><div class="stat-icon orange">◷</div><span>Pedidos abertos</span><strong>@Model.PedidosAbertos</strong><small>Precisam de atenção</small></div>
+ <div class="stat"><div class="stat-icon green">◈</div><span>Itens no cardápio</span><strong>@Model.Produtos</strong><small>Produtos disponíveis</small></div>
+ <div class="stat"><div class="stat-icon blue">R$</div><span>Faturamento</span><strong>R$ @Model.Faturamento.ToString("N2")</strong><small>Pedidos fechados</small></div>
+</div>
+<div class="section-head"><div><span class="eyebrow">ACOMPANHAMENTO</span><h3>Pedidos recentes</h3></div><a class="text-link" asp-controller="PedidosPage" asp-action="Index">Ver todos →</a></div>
+<div class="table-card"><table><thead><tr><th>Pedido</th><th>Status</th><th>Itens</th><th>Entregador</th><th>Total</th><th></th></tr></thead><tbody>
+@foreach(var p in Model.PedidosRecentes) { <tr><td><b>#@p.Numero.ToString("D3")</b></td><td><span class="badge @(p.Fechado ? "closed" : "open")">@(p.Fechado ? "Fechado" : "Em aberto")</span></td><td>@p.Itens.Sum(i => i.Quantidade) item(ns)</td><td>@(p.Entregador?.Nome ?? "—")</td><td><b>R$ @p.Total.ToString("N2")</b></td><td><a class="icon-btn" asp-controller="PedidosPage" asp-action="Detalhes" asp-route-numero="@p.Numero">→</a></td></tr> }
+@if(!Model.PedidosRecentes.Any()){<tr><td colspan="6" class="empty">Nenhum pedido ainda. Comece criando um novo pedido.</td></tr>}
+</tbody></table></div>
